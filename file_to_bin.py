@@ -1,3 +1,22 @@
+import random
+
+def flip(bit):
+    result = bit
+    if bit == "1":
+        result = "0"
+    else:
+        result = "1"
+    return result
+
+def change(binary):
+    result = ""
+    for bit in binary:
+        if random.random() < 0.9999:
+            result += bit
+        else:
+            result += flip(binary)
+    return result
+
 binstrs = []
 print("processing")
 with open("/Users/mfuchs/Documents/file_to_bin/kanu.png", "rb") as f:
@@ -6,6 +25,7 @@ for byte in ibytes:
     binary = bin(byte)[2:]
     while len(binary) < 8:
         binary = "0" + binary
+    binary = change(binary)
     binstrs.append(binary)
 print(binstrs[:10])
 ibytes2 = bytearray([int(binstr, 2) for binstr in binstrs])
